@@ -1,0 +1,70 @@
+---
+- hosts: localhost
+
+# Tasks
+  tasks:
+
+# Install Git Package
+    - name: Installing Git Package
+      yum: name=git-all state=present
+
+# Create Local Repository One
+    - name: Create Local Repo One
+      file:
+        path: ~/Desktop/5.3-github
+        state: directory
+
+# Clone Repository
+    - name: Clone Provided Repository
+      git:
+        repo: 'https://github.com/FullSail-CTBS/AUR_Activity3-4_Repository.git'
+        dest: ~/Desktop/5.3-github
+        force: yes
+
+# Add Term Number and Name
+    - name: Creating README.txt
+      file:
+        path: ~/Desktop/5.3-github/README.txt
+        state: touch
+
+# Add name and Term Number
+    - name: Add name and term number to the file in the cloned repo
+      lineinfile:
+        path: ~/Desktop/5.3-github/README.txt
+        line: 'Ian Main, CTI3111-O'
+        insertafter: '^-----First name, last name, and term number goes below this line-----'
+
+#  Create Second Local Repository
+    - name: Create Second Repository
+      file:
+        path: ~/Desktop/github
+        state: directory
+
+# Clone New Repository
+    - name: Clone New Repo tp GitHub directory
+      git:
+        repo: 'https://github.com/KingPandaKP/project2.git'
+        dest: ~/Desktop/github
+        force: yes
+
+# Copy edited file to github directory
+    - name: Copy edited file to github directory
+      copy:
+        src: ~/Desktop/5.3-github/README.txt
+        dest: ~/Desktop/github
+        remote_src: yes
+
+# Commit file to repository
+    - name: Commit new file to repo
+      shell: |
+        git add .
+        git commit -m "Adding updated file to repository"
+      args:
+        chdir: ~/Desktop/github
+
+# Git Push
+    - name: Git - Push
+      shell: git push
+      args:
+        chdir: ~/Desktop/github 
+
