@@ -17,7 +17,7 @@
 # Clone Repository
     - name: Clone Provided Repository
       git:
-        repo: 'https://github.com/FullSail-CTBS/AUR_Activity3-4_Repository.git'
+        repo: ''
         dest: ~/Desktop/5.3-github
         force: yes
 
@@ -31,7 +31,7 @@
     - name: Add name and term number to the file in the cloned repo
       lineinfile:
         path: ~/Desktop/5.3-github/README.txt
-        line: 'Ian Main, CTI3111-O'
+        line: ''
         insertafter: '^-----First name, last name, and term number goes below this line-----'
 
 #  Create Second Local Repository
@@ -43,7 +43,7 @@
 # Clone New Repository
     - name: Clone New Repo tp GitHub directory
       git:
-        repo: 'https://github.com/KingPandaKP/project2.git'
+        repo: ''
         dest: ~/Desktop/github
         force: yes
 
